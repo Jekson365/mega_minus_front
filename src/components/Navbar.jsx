@@ -55,6 +55,16 @@ export default function Navbar() {
                                             variant='h6'
                                             to={'/new_product'}
                                         >create</Typography>
+                                        <Typography color={'white'}
+                                            component={Link}
+                                            variant='h6'
+                                            to={'/calculation'}
+                                        >calculation</Typography>
+                                         <Typography color={'white'}
+                                            component={Link}
+                                            variant='h6'
+                                            to={'/mycalcs'}
+                                        >my calculations</Typography>
                                         {user.role_id == 2 ? 
                                         <Typography component={Link} to={'/users'}>
                                             <GoldenButton variant='contained'>Users</GoldenButton>

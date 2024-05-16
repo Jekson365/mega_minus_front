@@ -13,35 +13,17 @@ import Paper from '@mui/material/Paper';
 import SnackbarContent from '@mui/material/SnackbarContent';
 import Editproduct from './Editproduct';
 import Filters from '../filters/Filters';
+import { useUserProducts } from '../hooks/useUserProducts';
 
 
 function Products() {
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState("")
+    const {products,error,setProducts,setError,displayProducts} = useUserProducts()
     const [data, setData] = useState({})
     const [open, setOpen] = useState(false)
     
     const [code, setCode] = useState()
     const [title,setTitle] = useState()
 
-    const displayProducts = () => {
-        instance.get("/products",{ headers: { Authorization: localStorage.getItem("token") } })
-            .then((res) => {
-                if (res.data.status == "unauthorized") {
-                    setProducts(false)
-                    setError('არა ავტორიზებული მომხმარებელი')
-                }
-                else {
-                    setProducts(res.data)
-                }
-            })
-            .catch((err) => {
-                throw err
-            })
-    }
-    useEffect(() => {
-        displayProducts()
-    }, [])
     useEffect(() => {
         console.log(code,title)
         if (code == "" || title == "") {
@@ -57,14 +39,6 @@ function Products() {
     if (products != []) {
         return (
             <>
-                {/* <Filters 
-                code={code}
-                setCode={setCode} 
-
-                title={title}
-                setTitle={setTitle}
-                
-                /> */}
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
