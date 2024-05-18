@@ -45,9 +45,18 @@ function Calculation() {
                             placeholder='amount'
                             type='number'
                         ></TextField>
-                        <Button variant='contained'
-                            onClick={handleCalculateSubmit}
-                        >Submit</Button>
+                        <Stack direction={'row'} gap={'20px'}>
+                            <Button variant='contained'
+                                fullWidth
+                                onClick={handleCalculateSubmit}
+                            >Submit</Button>
+                            <Button
+                                variant='outlined'
+                                color='error'
+                                fullWidth
+                                onClick={() => setOpen(false)}
+                            >Cancel</Button>
+                        </Stack>
                     </Stack>
                 </Box>
             </Dialog>

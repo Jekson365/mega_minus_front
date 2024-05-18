@@ -12,6 +12,8 @@ import Products from './products/Products'
 import Calculation from './callucation/Calculation'
 import Createproduct from './products/Createproduct'
 import Mycalculations from './callucation/Mycalculations'
+import NewOverhead from './overheads/NewOverhead'
+import Overheads from './overheads/Overheads'
 
 export const UserContext = createContext()
 export const defaultImage = "https://i0.wp.com/collegecore.com/wp-content/uploads/2018/05/facebook-no-profile-picture-icon-620x389.jpg?fit=620%2C389&ssl=1"
@@ -32,6 +34,8 @@ function App() {
             <Route path='/new_product' element={<Createproduct/>}/>
             <Route path='/calculation' element={<Calculation/>}/>
             <Route path='/mycalcs' element={<Mycalculations/>}/>
+            <Route path='/new_overheads' element={<NewOverhead/>}/>
+            <Route path='/overheads' element={<Overheads/>}/>
           </Routes>
       </BrowserRouter>
     </>

@@ -61,14 +61,14 @@ function Login() {
         <Container className='foo'>
             <FormControl>
                 <Typography variant='h5'>
-                    Login
+                    სისტემაში შესვლა
                 </Typography>
                 <TextField
                     fullWidth
                     id='username'
                     type='text'
-                    placeholder='username'
-                    label='username'
+                    placeholder='სახელი'
+                    label='სახელი'
                     margin='dense'
                     onChange={(e)=>setUsername(e.target.value)}
                     />
@@ -77,14 +77,14 @@ function Login() {
                     fullWidth
                     id='password'
                     type='password'
-                    placeholder='password'
-                    label='your password'
+                    placeholder='პაროლი'
+                    label='პაროლი'
                     onChange={(e)=>setPassword(e.target.value)}
                     />
             <Button
                 variant='contained' size='large'
                 onClick={login}
-            >Login</Button>
+            >შესვლა</Button>
             </FormControl>
         </Container>
         
