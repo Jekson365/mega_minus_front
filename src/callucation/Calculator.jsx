@@ -21,7 +21,7 @@ function Calculator(props) {
             price,
             title,
             products: props.calcProducts
-        })
+        },{headers: {Authorization: localStorage.getItem("token")}})
         .then((res)=> {
             console.log(res.data)
         })

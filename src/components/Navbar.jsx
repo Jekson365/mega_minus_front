@@ -15,7 +15,12 @@ import Avatar from '@mui/material/Avatar'
 import SettingsIcon from '@mui/icons-material/Settings';
 import instance from '../api';
 import { GoldenButton } from '../styles/styles';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import ProductMenu from './nav_components/ProductMenu';
+import CalculationMenu from './nav_components/CalculationMenu';
+import OverHeadMenu from './nav_components/OverHeadMenu';
 
 export default function Navbar() {
     const [loged, setLoged] = useState(localStorage.getItem("token") == "" ? false : true)
@@ -25,6 +30,15 @@ export default function Navbar() {
         localStorage.setItem("token", "")
         window.location.href = 'login'
     }
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
@@ -37,41 +51,24 @@ export default function Navbar() {
                             <>
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Stack direction={'row'} gap={'10px'}>
-                                        <Typography
-                                            color={'white'}
-                                            to={'/login'}
-                                            onClick={logOut}
-                                            variant="h6" component={Link}>
-                                            logout
-                                        </Typography>
-                                        <Typography
-                                            color={'white'}
-                                            to={'/products'}
-                                            variant="h6" component={Link}>
-                                            products
-                                        </Typography>
-                                        <Typography color={'white'}
-                                            component={Link}
-                                            variant='h6'
-                                            to={'/new_product'}
-                                        >create</Typography>
-                                        <Typography color={'white'}
-                                            component={Link}
-                                            variant='h6'
-                                            to={'/calculation'}
-                                        >calculation</Typography>
-                                         <Typography color={'white'}
-                                            component={Link}
-                                            variant='h6'
-                                            to={'/mycalcs'}
-                                        >my calculations</Typography>
-                                        {user.role_id == 2 ? 
-                                        <Typography component={Link} to={'/users'}>
-                                            <GoldenButton variant='contained'>Users</GoldenButton>
-                                        </Typography> : ""}
+                                        <ProductMenu />
+                                        <CalculationMenu/>
+                                        <OverHeadMenu/>
+                                        {user.role_id == 2 ?
+                                            <Typography component={Link} to={'/users'}>
+                                                <GoldenButton variant='contained'>მომხმარებლები</GoldenButton>
+                                            </Typography> : ""}
                                     </Stack>
                                 </Box>
                                 <Stack direction={'row'} gap={'10px'} alignItems={'center'}>
+                                    <Typography
+                                        mt={1}
+                                        color={'white'}
+                                        to={'/login'}
+                                        onClick={logOut}
+                                        variant="h6" component={Link}>
+                                        <LogoutIcon />
+                                    </Typography>
                                     <Typography component={Link} to={'/edit'} color={'white'} mt={1}>
                                         <SettingsIcon
                                         ></SettingsIcon>
@@ -82,8 +79,8 @@ export default function Navbar() {
                             </>
                         ) :
                             <>
-                                <Button color='inherit' component={Link} to={'/login'} >login</Button>
-                                <Button color='inherit' component={Link} to={'/signup'}>Sign up</Button>
+                                <Button color='inherit' component={Link} to={'/login'} >შესვლა</Button>
+                                <Button color='inherit' component={Link} to={'/signup'}>რეგისტრაცია</Button>
                             </>}
                     </Toolbar>
                 </AppBar>

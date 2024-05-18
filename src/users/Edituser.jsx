@@ -64,14 +64,14 @@ function Edituser() {
                             gap={'5px'}
                         >
                             <Typography variant='h5'>
-                                Edit user
+                                რედაქტირება
                             </Typography>
                             <TextField
                                 fullWidth
                                 id='username'
                                 type='text'
                                 placeholder={user.username}
-                                label={user.username}
+                                label={"სახელი"}
                                 margin='dense'
                                 name='username'
                                 onChange={(e) => setUser({ ...user, username: e.target.value })}
@@ -82,8 +82,8 @@ function Edituser() {
                                 id='password'
                                 name='password'
                                 type='password'
-                                placeholder='password'
-                                label='your password'
+                                placeholder='პაროლი'
+                                label='პაროლი'
                                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                             />
                             <TextField
@@ -92,8 +92,8 @@ function Edituser() {
                                 id='password_confirmation'
                                 name='password_confirmation'
                                 type='password'
-                                placeholder='confirm password'
-                                label='repeat password'
+                                placeholder='გაიმეორეთ პაროლი'
+                                label='გაიმეორეთ პაროლი'
                                 onChange={(e) => setUser({ ...user, password_confirmation: e.target.value })}
                             />
                             <Button
@@ -103,7 +103,7 @@ function Edituser() {
                                 tabIndex={-1}
                                 startIcon={<CloudUploadIcon />}
                             >
-                                Upload file
+                                ატვირთვა
                                 <VisuallyHiddenInput type="file"
                                     onChange={(e) => setAvatar(e.target.files[0])}
                                     name='avatar' />
@@ -112,7 +112,7 @@ function Edituser() {
                             <Button
                                 variant='contained' size='large'
                                 onClick={update}
-                            >Update</Button>
+                            >განახლება</Button>
                         </Stack>
                     </FormControl>
                 </Container>

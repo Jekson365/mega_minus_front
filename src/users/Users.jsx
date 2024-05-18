@@ -69,7 +69,7 @@ function Users() {
     }, [])
     return (
         <>
-            {loading ? <h1>Loading...</h1> :
+            {loading ? <h1>იტვირთება...</h1> :
                 <>
                     <Snackbar
                         open={adminToast}
@@ -88,10 +88,10 @@ function Users() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Username</TableCell>
+                                    <TableCell>სახელი</TableCell>
                                     <TableCell
-                                    >Delete</TableCell>
-                                    <TableCell>Update</TableCell>
+                                    >წაშლა</TableCell>
+                                    <TableCell>განახლება</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -105,7 +105,7 @@ function Users() {
                                                         variant='outlined'
                                                         color='error'
                                                         onClick={() => handleClickOpen(e.id)}
-                                                    >Delete</Button>
+                                                    >წაშლა</Button>
                                                 </TableCell>
                                                 <TableCell
                                                 >
@@ -113,7 +113,7 @@ function Users() {
                                                         onClick={() => setUpdatePopUp({ open: true, user: e })}
                                                         color='primary'
                                                         variant='contained'
-                                                    >Update</Button>
+                                                    >განახლება</Button>
                                                 </TableCell>
                                             </TableRow>
                                         </>

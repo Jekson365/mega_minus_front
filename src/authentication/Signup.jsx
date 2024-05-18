@@ -56,14 +56,14 @@ function Signup() {
                 <Container className='foo'>
                     <FormControl enctype='multipart/form-data'>
                         <Typography variant='h5'>
-                            Sign up
+                            რეგისტრაცია
                         </Typography>
                         <TextField
                             fullWidth
                             id='username'
                             type='text'
-                            placeholder='username'
-                            label='username'
+                            placeholder='სახელი'
+                            label='სახელი'
                             margin='dense'
                             name='username'
                             onChange={(e) => setUsername(e.target.value)}
@@ -74,8 +74,8 @@ function Signup() {
                             id='password'
                             name='password'
                             type='password'
-                            placeholder='password'
-                            label='your password'
+                            placeholder='პაროლი'
+                            label='პაროლი'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <TextField
@@ -84,8 +84,8 @@ function Signup() {
                             id='password_confirmation'
                             name='password_confirmation'
                             type='password'
-                            placeholder='confirm password'
-                            label='repeat password'
+                            placeholder='გაიმეორეთ პაროლი'
+                            label='გაიმეორეთ პაროლი'
                             onChange={(e) => setRepeat(e.target.value)}
                         />
                         <Button
@@ -95,7 +95,7 @@ function Signup() {
                             tabIndex={-1}
                             startIcon={<CloudUploadIcon />}
                         >
-                            Upload file
+                            ატვირთვა
                             <VisuallyHiddenInput type="file"
                                 onChange={(e) => setAvatar(e.target.files[0])}
                                 name='avatar' />
@@ -105,7 +105,7 @@ function Signup() {
                             variant='contained' size='large'
 
                             onClick={register}
-                        >Register</Button>
+                        >რეგისტრაცია</Button>
                     </FormControl>
                 </Container>
 

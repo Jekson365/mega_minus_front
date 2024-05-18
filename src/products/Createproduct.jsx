@@ -6,10 +6,12 @@ import { InputLabel, Select, MenuItem } from '@mui/material';
 import Grid from '@mui/material/Grid'
 import instance from '../api';
 import Button from '@mui/material/Button'
+import useCategories from '../hooks/useCategories';
+
 
 function Createproduct() {
     const [productData, setProductData] = useState({})
-    const [categories, setCategories] = useState([])
+    const {categories,setCategories} = useCategories()
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState({
         username: "",
@@ -24,13 +26,6 @@ function Createproduct() {
             .then((res) => {
                 setUser(res.data)
                 setLoading(false)
-            })
-    }, [])
-
-    useEffect(() => {
-        instance.get('/categories')
-            .then((res) => {
-                setCategories(res.data)
             })
     }, [])
 

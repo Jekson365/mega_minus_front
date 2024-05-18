@@ -17,16 +17,17 @@ function Mycalculations() {
     const [currentCalculation, setCurrentCalculation] = useState()
 
     const getCalculations = async () => {
-        instance.get("/calculations")
+        instance.get("/calculations", { headers: { Authorization: localStorage.getItem("token") } })
             .then((res) => {
                 setCalculations(res.data)
                 setLoading(false)
             })
     }
 
-    const getCurrentCalculationProduct = async (id) => {
+    const getCurrentCalculationProduct = async (id) => {    
         await instance.post('/current_calculation', { calculation_id: id })
             .then((res) => {
+                console.log(res.data)
                 setCurrentCalculation(res.data)
             })
     }
@@ -35,16 +36,17 @@ function Mycalculations() {
         await instance.post('/delete_calculation', { calculation_id: id })
             .then((res) => {
                 console.log(res.data)
+                window.location.reload()
             })
     }
 
-    const removeCalcProduct = async (id,calc_id) => {
-        await instance.post('/delete_calc_product',{product_id: id,calculation_id: calc_id})
-            .then((res)=> {
+    const removeCalcProduct = async (id, calc_id) => {
+        await instance.post('/delete_calc_product', { product_id: id, calculation_id: calc_id })
+            .then((res) => {
                 console.log(res)
                 window.location.reload()
             })
-            
+
     }
     useEffect(() => {
         getCalculations()
@@ -70,25 +72,27 @@ function Mycalculations() {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Id</TableCell>
+                                        <TableCell>Code</TableCell>
                                         <TableCell>Title</TableCell>
                                         <TableCell>price</TableCell>
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody className='scrollable'>
-                                    {calculations.map((row) => (
+                                    {calculations && calculations.map((row) => (
                                         <TableRow
                                             onClick={() => getCurrentCalculationProduct(row.id)}
                                             className='prod-row'
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell>{row.id}</TableCell>
+                                            <TableCell>{row.code}</TableCell>
                                             <TableCell>{row.title}</TableCell>
                                             <TableCell>{row.price}</TableCell>
                                             <TableCell>
                                                 <Button variant='contained' color='error'
                                                     onClick={() => removeCalculation(row.id)}
-                                                >
+                                                >z
                                                     Remove
                                                 </Button>
                                             </TableCell>
@@ -112,7 +116,7 @@ function Mycalculations() {
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
-                                <TableBody className='scrollable'>
+                                <TableBody className='scrollable' >
                                     {currentCalculation && currentCalculation.data.map((row) => (
                                         <TableRow
                                             onClick={() => getCurrentCalculationProduct(row.id)}
@@ -123,7 +127,7 @@ function Mycalculations() {
                                             <TableCell>{row.title}</TableCell>
                                             <TableCell>{row.price}</TableCell>
                                             <Button variant='contained' mt={1}
-                                                onClick={()=>removeCalcProduct(row.id,currentCalculation.calc_info.id)}
+                                                onClick={() => removeCalcProduct(row.id, currentCalculation.calc_info.id)}
                                             >Remove</Button>
                                         </TableRow>
                                     ))}
