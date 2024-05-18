@@ -8,6 +8,9 @@ import instance from '../api';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Error from '../errors/Error';
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 
 
 function Signup() {
@@ -23,17 +26,16 @@ function Signup() {
         whiteSpace: 'nowrap',
         width: 1,
     });
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [password_confirmation, setRepeat] = useState('')
-    const [open, setOpen] = React.useState(false);
     const [avatar, setAvatar] = useState("")
-    const [message, setMessage] = useState("")
+    const [isError, setIsError] = useState([])
 
 
     const register = async () => {
         try {
-
             instance.post('/users/register',
                 { username, password, password_confirmation, avatar },
                 {
@@ -43,7 +45,12 @@ function Signup() {
                 }
             )
                 .then((res) => {
-                    window.location.href = "/login"
+                    if (res.data.status == 'ok') {
+                        window.location.href = "/login"
+                    }
+                    else {
+                        setIsError(res.data.errors)
+                    }
                 })
         }
         catch (err) {
@@ -52,6 +59,7 @@ function Signup() {
     }
     return (
         <div>
+            <Error isError={isError}/>
             <div className={'center-container'}>
                 <Container className='foo'>
                     <FormControl enctype='multipart/form-data'>
@@ -103,7 +111,6 @@ function Signup() {
 
                         <Button
                             variant='contained' size='large'
-
                             onClick={register}
                         >რეგისტრაცია</Button>
                     </FormControl>

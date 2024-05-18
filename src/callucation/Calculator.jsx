@@ -11,23 +11,29 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import instance from '../api';
+import Error from '../errors/Error';
 
 function Calculator(props) {
-    const [price,setPrice] = useState()
-    const [title,setTitle] = useState()
-
+    const [price, setPrice] = useState()
+    const [title, setTitle] = useState()
+    const [isError, setIsError] = useState([])
     const postCalculation = async () => {
-        instance.post("/create_calculation",{
+        instance.post("/create_calculation", {
             price,
             title,
             products: props.calcProducts
-        },{headers: {Authorization: localStorage.getItem("token")}})
-        .then((res)=> {
-            console.log(res.data)
-        })
+        }, { headers: { Authorization: localStorage.getItem("token") } })
+            .then((res) => {
+                if (res.data.status == 401) {
+                    setIsError(res.data.errors)
+                } else {
+                    location.reload()
+                }
+            })
     }
     return (
         <>
+            <Error isError={isError} />
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -56,11 +62,11 @@ function Calculator(props) {
                                 >Save</Button>
                                 <TextField
                                     placeholder='price'
-                                    onChange={(e)=>setPrice(e.target.value)}
+                                    onChange={(e) => setPrice(e.target.value)}
                                 ></TextField>
                                 <TextField
                                     placeholder='title'
-                                    onChange={(e)=>setTitle(e.target.value)}
+                                    onChange={(e) => setTitle(e.target.value)}
                                 ></TextField>
                             </Stack>
                         </TableRow>

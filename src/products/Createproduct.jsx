@@ -7,19 +7,22 @@ import Grid from '@mui/material/Grid'
 import instance from '../api';
 import Button from '@mui/material/Button'
 import useCategories from '../hooks/useCategories';
+import Error from '../errors/Error';
+import Box from '@mui/material/Box'
 
 
 function Createproduct() {
     const [productData, setProductData] = useState({})
-    const {categories,setCategories} = useCategories()
+    const { categories, setCategories } = useCategories()
     const [loading, setLoading] = useState(true)
+    const [isError, setIsError] = useState([])
     const [user, setUser] = useState({
         username: "",
         password: ""
     })
-    useEffect(()=> {
+    useEffect(() => {
         console.log(productData)
-    },[productData])
+    }, [productData])
     useEffect(() => {
         instance.get("/current_user",
             { headers: { Authorization: localStorage.getItem("token") } })
@@ -30,13 +33,20 @@ function Createproduct() {
     }, [])
 
     const createRecord = async () => {
-        await instance.post("/create_product", {...productData,user_id: user.id})
+        await instance.post("/create_product", { ...productData, user_id: user.id })
             .then((res) => {
-                window.location.href = '/products'
+                console.log(res)
+                if (res.data.status == 401) {
+                    setIsError(res.data.message)
+                }
+                else {
+                    window.location.href = '/products'
+                }
             })
     }
     return (
         <>
+            <Error isError={isError} />
             <div className='marg'>
                 <FormControl>
                     <Grid
@@ -102,12 +112,12 @@ function Createproduct() {
                             </Select>
                         </Grid>
                     </Grid>
-                        <Grid item mt={1}>
-                            <Button
-                                onClick={createRecord}
-                                variant='contained'
-                            >Submit</Button>
-                        </Grid>
+                    <Grid item mt={1}>
+                        <Button
+                            onClick={createRecord}
+                            variant='contained'
+                        >Submit</Button>
+                    </Grid>
                 </FormControl>
             </div>
         </>

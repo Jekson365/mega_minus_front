@@ -9,11 +9,13 @@ import instance from '../api';
 import Button from '@mui/material/Button'
 import useCurrentUser from '../hooks/useCurrentUser';
 import Typography from '@mui/material/Typography'
+import Error from '../errors/Error';
 
 
 function Editproduct(props) {
     const [productData, setProductData] = useState({})
     const [categories, setCategories] = useState([])
+    const [isError, setIsError] = useState([])
     const currentProduct = props.data
 
     const { loading, user } = useCurrentUser()
@@ -24,9 +26,11 @@ function Editproduct(props) {
                 setCategories(res.data)
             })
     }, [])
+    useEffect(() => {
+        console.log(productData)
+    }, [productData])
 
     const updateRecord = async () => {
-        console.log(productData)
         await instance.patch("/update_product", { ...productData, product_id: currentProduct.id, user_id: user.id },
             {
                 headers: {
@@ -40,6 +44,7 @@ function Editproduct(props) {
     }
     return (
         <>
+            <Error isError={isError} />
             <div className={`edit-product-popup ${props.open ? 'open-slide' : ""}`}>
                 <div className='marg'>
                     <FormControl>
@@ -114,7 +119,7 @@ function Editproduct(props) {
                                     variant='contained'
                                 >Update</Button>
                                 <Button variant='outlined' color='error'
-                                    onClick={()=> props.setopen(false)}
+                                    onClick={() => props.setopen(false)}
                                 >Cancel</Button>
                             </Stack>
 

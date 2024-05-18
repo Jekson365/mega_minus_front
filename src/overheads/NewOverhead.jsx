@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import instance from '../api';
 import Typography from '@mui/material/Typography'
 
-function Overhead() {
+function NewOverhead() {
   const [productData, setProductData] = useState({})
   const [overhead, setOverhead] = useState([])
   const { categories, setCategories } = useCategories()
@@ -167,4 +167,4 @@ function Overhead() {
   )
 }
 
-export default Overhead
+export default NewOverhead

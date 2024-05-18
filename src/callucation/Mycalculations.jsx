@@ -10,17 +10,17 @@ import Grid from '@mui/material/Grid'
 import TableBody from '@mui/material/TableBody'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Error from '../errors/Error'
 
 function Mycalculations() {
     const [loading, setLoading] = useState(true)
     const [calculations, setCalculations] = useState()
     const [currentCalculation, setCurrentCalculation] = useState()
-
     const getCalculations = async () => {
         instance.get("/calculations", { headers: { Authorization: localStorage.getItem("token") } })
             .then((res) => {
-                setCalculations(res.data)
-                setLoading(false)
+                    setCalculations(res.data)
+                    setLoading(false)
             })
     }
 

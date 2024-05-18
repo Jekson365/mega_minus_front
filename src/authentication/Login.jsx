@@ -6,12 +6,14 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import instance from '../api';
 import Snackbar from '@mui/material/Snackbar'
+import Error from '../errors/Error';
 
 function Login() {
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const [open, setOpen] = React.useState(false);
     const [message,setMessage] = useState("")
+    const [isError,setIsError] = useState([])
 
     const handleClick = () => {
         setOpen(true);
@@ -21,7 +23,6 @@ function Login() {
         if (reason === 'clickaway') {
         return;
         }
-
         setOpen(false);
     };
 
@@ -32,7 +33,8 @@ function Login() {
             .then((res)=> {
                 if (res.data.status == 401) {
                     setOpen(true)
-                    setMessage('credentials incorrect')
+                    // setMessage('credentials incorrect')
+                    setIsError(res.data.errors)
                 }
                 else {  
                     localStorage.setItem('token',res.data.token)
@@ -49,14 +51,7 @@ function Login() {
     }
   return (
     <>
-    <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        message={message}
-        severity='danger'
-    >
-    </Snackbar>
+    <Error isError={isError}/>
     <div className={'center-container'}>
         <Container className='foo'>
             <FormControl>
